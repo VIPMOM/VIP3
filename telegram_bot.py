@@ -2,12 +2,22 @@ import telebot
 import requests
 import os
 
-# استخدم متغير بيئة للتوكن بدلاً من كتابته مباشرة
+# محاولة الحصول على التوكن من متغير البيئة أولاً
 TOKEN = os.getenv('TELEGRAM_BOT_TOKEN', '')
 
+# إذا لم يكن موجوداً، اطلبه من المستخدم
 if not TOKEN:
-    print("تحذير: يرجى تعيين TELEGRAM_BOT_TOKEN في متغيرات البيئة")
-    exit(1)
+    print("=" * 50)
+    print("مرحباً بك في بوت تيليجرام")
+    print("=" * 50)
+    TOKEN = input("الرجاء إدخال توكن البوت الخاص بك: ").strip()
+    
+    if not TOKEN:
+        print("❌ خطأ: لم يتم إدخال التوكن!")
+        exit(1)
+    
+    print("✅ تم تعيين التوكن بنجاح!")
+    print("=" * 50)
 
 bot = telebot.TeleBot(TOKEN)
 
